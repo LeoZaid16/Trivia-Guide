@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Trivia Guide</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="/assets/img/logo/logo-tab.png" />
+    <!-- BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <style>
+        /* LOGO */
+        .navbar-logo {
+            height: 48px !important;
+            width: auto !important;
+            object-fit: contain !important;
+        }
+
+        /* CARDS */
+        .guide-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            transition: transform .2s;
+            border-left: 10px solid transparent;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .guide-img {
+            width: 95px;
+            height: 95px;
+            background: #ddd;
+            border-radius: 14px;
+        }
+
+        .color-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <aside id="sideMenu" class="bg-white shadow"
+        style="width:260px; position:fixed; top:0; left:-260px; height:100vh; transition:.3s; z-index:2000;">
+
+        <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold m-0">Menú</h5>
+            <button id="closeSide" class="btn btn-link fs-4 text-dark">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="bi bi-house-door me-2"></i> Inicio</li>
+            <li class="list-group-item"><i class="bi bi-journal-bookmark me-2"></i> Mis Guías</li>
+            <li class="list-group-item"><i class="bi bi-bar-chart-line me-2"></i> Progreso</li>
+            <li class="list-group-item"><i class="bi bi-gear me-2"></i> Configuración</li>
+        </ul>
+    </aside>
+
+    <!-- OVERLAY -->
+    <div id="overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4);
+               display:none; z-index:1500;"></div>
+
+    <!-- NAVBAR (Responsive, coloured and styled) CENTERED WHEN SMALLER THAN SM -->
+    <nav class="navbar navbar-light bg-light fixed-top" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15)">
+
+        <div class="container px-0 px-sm-5 d-flex flex-wrap justify-content-between align-items-center">
+
+            <!-- SIDE MENU -->
+            <button id="openSide" class="btn btn-link text-dark fs-4 me-2">
+                <i class="bi bi-list" style="font-size: 1.5em;"></i>
+            </button>
+
+            <!-- BRAND LOGO -->
+            <a class="navbar-brand" href="">
+                <img src="/assets/img/logo/logo.png" alt="Trivia Guide" class="navbar-logo" />
+            </a>
+
+            <!-- PROFILE BUTTON -->
+            <button id="profileBtn" class="btn btn-link text-dark">
+                <i class="bi bi-person-circle" style="font-size: 2.5em"></i>
+            </button>
+
+        </div>
+    </nav>
+
+    <main class="py-5 my-5 container">
+        <!-- SALUDO -->
+        <div class="text-center mt-5">
+            <h3 class="fw-bold">¡Hola, Usuario Demo!</h3>
+            <p class="text-muted fs-5 mt-2">Crea guías personalizadas y pon a prueba tus conocimientos</p>
+
+            <button class="btn btn-primary fw-semibold px-4 py-2 mt-2 rounded-5">
+                <i class="bi bi-plus-lg me-1"></i> Crear nueva guía
+            </button>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="position-relative my-5" style="max-width:100%">
+            <input type="text" id="searchInput" class="form-control search-input rounded-5 ps-4 py-3 fs-5"
+                placeholder="Buscar guías...">
+        </div>
+
+        <!-- POPULAR GUIDES -->
+        <section class="popular-guides">
+            <h4 class="fw-bold mb-4">Guías populares</h4>
+            <div class="row" id="cardsContainer">
+
+                <!-- 1 -->
+                <div class="col-lg-6 mb-4 guide-item" data-title="Historia Universal">
+                    <div class="guide-card" style="border-left-color:#54a0ff;">
+                        <div class="d-flex p-3">
+
+                            <div class="guide-img me-3">
+
+                            </div>
+
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold mb-1">Historia Universal</h5>
+                                <p class="text-muted small mb-2">Explora los eventos más importantes de la historia
+                                    mundial.</p>
+                                <span class="badge bg-light text-dark border">Historia · 3 preguntas</span>
+                            </div>
+
+                            <div class="d-flex align-items-start">
+                                <div class="color-dot" style="background:#54a0ff;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2 -->
+                <div class="col-lg-6 mb-4 guide-item" data-title="Matemáticas Básicas">
+                    <div class="guide-card" style="border-left-color:#2ecc71;">
+                        <div class="d-flex p-3">
+
+                            <div class="guide-img me-3"></div>
+
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold mb-1">Matemáticas Básicas</h5>
+                                <p class="text-muted small mb-2">Practica operaciones matemáticas fundamentales.</p>
+                                <span class="badge bg-light text-dark border">Matemáticas · 2 preguntas</span>
+                            </div>
+
+                            <div class="d-flex align-items-start">
+                                <div class="color-dot" style="background:#2ecc71;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 3 -->
+                <div class="col-lg-6 mb-4 guide-item" data-title="Ciencia General">
+                    <div class="guide-card" style="border-left-color:#e74c3c;">
+                        <div class="d-flex p-3">
+
+                            <div class="guide-img me-3"></div>
+
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold mb-1">Ciencia General</h5>
+                                <p class="text-muted small mb-2">Descubre conceptos básicos de diversas ramas
+                                    científicas.</p>
+                                <span class="badge bg-light text-dark border">Ciencia · 4 preguntas</span>
+                            </div>
+
+                            <div class="d-flex align-items-start">
+                                <div class="color-dot" style="background:#e74c3c;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 4 -->
+                <div class="col-lg-6 mb-4 guide-item" data-title="Geografía Mundial">
+                    <div class="guide-card  " style="border-left-color:#f1c40f;">
+                        <div class="d-flex p-3">
+
+                            <div class="guide-img me-3"></div>
+
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold mb-1">Geografía Mundial</h5>
+                                <p class="text-muted small mb-2">Conoce los países, capitales y características
+                                    geográficas del mundo.</p>
+                                <span class="badge bg-light text-dark border">Geografía · 5 preguntas</span>
+                            </div>
+                            <div class="d-flex align-items-start">
+                                <div class="color-dot" style="background:#f1c40f;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-5 mt-5 border-top bg-light">
+        <div class="container text-center text-md-start">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start mb-3">
+                        <img src="/assets/img/logo/logo.png" alt="TriviaGuide Logo" class="navbar-logo"
+                            style="margin-right: 8px" />
+                    </div>
+                    <p class="text-muted">
+                        Aprende de forma divertida e interactiva con nuestras guías
+                        educativas.
+                    </p>
+                </div>
+
+                <div class="col-md-2 mb-3 text-center text-md-start">
+                    <h5 class="fw-bold">Recursos</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="text-muted text-decoration-none">Sobre Nosotros</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-muted text-decoration-none">Ayuda</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-muted text-decoration-none">Preguntas Frecuentes</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 mb-3 text-center text-md-start">
+                    <h5 class="fw-bold text-center text-md-start">Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-envelope me-2"></i> Enviar mensaje
+                        </li>
+                        <li class="mb-2 text-primary fw-bold">soporte@triviaGuide.com</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <h5 class="fw-bold text-center text-md-start">Síguenos</h5>
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                        <a href="#" class="btn btn-outline-secondary me-2 rounded-circle"><i
+                                class="bi bi-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-secondary me-2 rounded-circle"><i
+                                class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="btn btn-outline-secondary me-2 rounded-circle"><i
+                                class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row d-flex justify-content-between pt-4 mt-4 border-top">
+                    <div class="col-md-6 col-12">
+                        <p class="mb-0 text-muted text-center text-md-start">
+                            © 2025 TriviaGuide. Todos los derechos reservados.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-12 text-center text-md-end">
+                        <p class="mb-0 text-muted">Hecho con ❤️ para estudiantes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- OFFCANVAS DE PERFIL -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="perfilCanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Mi perfil</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body">
+
+            <div class="text-center mb-3">
+                <img id="currentPhoto" class="current-photo" src="https://randomuser.me/api/portraits/men/11.jpg">
+                <h5 id="userName" class="mt-3"></h5>
+                <p id="userEmail" class="text-muted"></p>
+            </div>
+
+            <hr>
+
+            <h6 class="fw-bold">Cambiar foto de perfil</h6>
+
+            <div class="row text-center mt-3 g-2">
+
+                <div class="col"><img class="profile-photo selectable"
+                        src="https://randomuser.me/api/portraits/men/11.jpg"></div>
+                <div class="col"><img class="profile-photo selectable"
+                        src="https://randomuser.me/api/portraits/women/22.jpg"></div>
+                <div class="col"><img class="profile-photo selectable"
+                        src="https://randomuser.me/api/portraits/men/44.jpg"></div>
+                <div class="col"><img class="profile-photo selectable"
+                        src="https://randomuser.me/api/portraits/women/68.jpg"></div>
+
+            </div>
+
+            <hr class="my-4">
+
+            <h6 class="fw-bold">Cambiar contraseña</h6>
+
+            <form id="passwordForm" class="mt-3">
+                <label class="form-label">Contraseña actual</label>
+                <input type="password" id="currentPass" class="form-control">
+
+                <label class="form-label mt-3">Nueva contraseña</label>
+                <input type="password" id="newPass" class="form-control">
+
+                <label class="form-label mt-3">Confirmar nueva contraseña</label>
+                <input type="password" id="confirmPass" class="form-control">
+
+                <div id="passMessage" class="mt-2" style="font-size:.9rem;"></div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">
+                    Actualizar contraseña
+                </button>
+            </form>
+
+            <button id="logoutBtn" class="btn btn-outline-danger w-100 mt-4">
+                Cerrar sesión
+            </button>
+
+        </div>
+    </div>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS FINAL UNIFICADO -->
+    <script>
+
+        /* -------------------- BUSCADOR -------------------- */
+        const searchInput = document.getElementById("searchInput");
+        const cards = document.querySelectorAll(".guide-item");
+
+        searchInput.addEventListener("keyup", () => {
+            let text = searchInput.value.toLowerCase();
+            cards.forEach(card => {
+                let title = card.getAttribute("data-title").toLowerCase();
+                card.style.display = title.includes(text) ? "block" : "none";
+            });
+        });
+
+
+        /* -------------------- SIDEBAR -------------------- */
+        const sideMenu = document.getElementById("sideMenu");
+        const openSide = document.getElementById("openSide");
+        const closeSide = document.getElementById("closeSide");
+        const overlay = document.getElementById("overlay");
+
+        openSide.addEventListener("click", () => {
+            sideMenu.style.left = "0";
+            overlay.style.display = "block";
+        });
+
+        closeSide.addEventListener("click", closeSidebar);
+        overlay.addEventListener("click", closeSidebar);
+
+        function closeSidebar() {
+            sideMenu.style.left = "-260px";
+            overlay.style.display = "none";
+        }
+
+
+        /* -------------------- PERFIL -------------------- */
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const savedName = localStorage.getItem("username") || "Usuario Demo";
+            const savedEmail = localStorage.getItem("email") || "email@ejemplo.com";
+            const savedPhoto = localStorage.getItem("profilePhoto");
+
+            document.getElementById("userName").textContent = savedName;
+            document.getElementById("userEmail").textContent = savedEmail;
+
+            if (savedPhoto) {
+                document.getElementById("currentPhoto").src = savedPhoto;
+            }
+        });
+
+        // Fotos
+        const currentPhoto = document.getElementById("currentPhoto");
+        const photoOptions = document.querySelectorAll(".selectable");
+
+        photoOptions.forEach(img => {
+            img.addEventListener("click", () => {
+                photoOptions.forEach(i => i.classList.remove("selected"));
+                img.classList.add("selected");
+                currentPhoto.src = img.src;
+                localStorage.setItem("profilePhoto", img.src);
+            });
+        });
+
+        // Contraseña
+        document.getElementById("passwordForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const current = document.getElementById("currentPass").value.trim();
+            const newPass = document.getElementById("newPass").value.trim();
+            const confirmPass = document.getElementById("confirmPass").value.trim();
+            const msg = document.getElementById("passMessage");
+
+            const hasSymbol = /[^A-Za-z0-9]/.test(newPass);
+            const hasUpper = /[A-Z]/.test(newPass);
+
+            if (!current || !newPass || !confirmPass) {
+                msg.style.color = "red";
+                msg.textContent = "Debes completar todos los campos.";
+                return;
+            }
+
+            if (newPass.length < 8) {
+                msg.style.color = "red";
+                msg.textContent = "La contraseña debe tener mínimo 8 caracteres.";
+                return;
+            }
+
+            if (!hasUpper) {
+                msg.style.color = "red";
+                msg.textContent = "Debe contener al menos una letra mayúscula.";
+                return;
+            }
+
+            if (!hasSymbol) {
+                msg.style.color = "red";
+                msg.textContent = "Debe incluir al menos un símbolo.";
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                msg.style.color = "red";
+                msg.textContent = "Las contraseñas no coinciden.";
+                return;
+            }
+
+            msg.style.color = "green";
+            msg.textContent = "Contraseña válida.";
+
+            setTimeout(() => {
+                alert("Contraseña actualizada correctamente.");
+            }, 300);
+        });
+
+        // Logout
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            window.location.href = "index.html";
+        });
+
+    </script>
+</body>
+
+</html>
