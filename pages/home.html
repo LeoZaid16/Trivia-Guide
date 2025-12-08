@@ -76,11 +76,15 @@
         }
 
         .current-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid #0d6efd;
+            display: block;
+            margin: 0 auto;
+            /* ← centra horizontalmente */
+            width: 110px;
+            /* opcional, tamaño uniforme */
+            height: 110px;
+            /* opcional */
             object-fit: cover;
+            border-radius: 50%;
         }
     </style>
 </head>
@@ -158,7 +162,7 @@
             <div class="row" id="cardsContainer">
 
                 <!-- 1 -->
-                <div class="col-lg-6 mb-4 guide-item" data-title="Historia Universal">
+                <div class="col-lg-6 mb-4 guide-item" data-title="Historia Universal" onclick="openGuide(1)">
                     <div class="guide-card" style="border-left-color:#54a0ff;">
                         <div class="d-flex p-3">
 
@@ -181,7 +185,7 @@
                     </div>
                 </div>
                 <!-- 2 -->
-                <div class="col-lg-6 mb-4 guide-item" data-title="Matemáticas Básicas">
+                <div class="col-lg-6 mb-4 guide-item" data-title="Matemáticas Básicas" onclick="openGuide(2)">
                     <div class="guide-card" style="border-left-color:#2ecc71;">
                         <div class="d-flex p-3">
 
@@ -203,7 +207,7 @@
                     </div>
                 </div>
                 <!-- 3 -->
-                <div class="col-lg-6 mb-4 guide-item" data-title="Ciencia General">
+                <div class="col-lg-6 mb-4 guide-item" data-title="Ciencia General" onclick="openGuide(3)">
                     <div class="guide-card" style="border-left-color:#e74c3c;">
                         <div class="d-flex p-3">
 
@@ -226,7 +230,7 @@
                     </div>
                 </div>
                 <!-- 4 -->
-                <div class="col-lg-6 mb-4 guide-item" data-title="Geografía Mundial">
+                <div class="col-lg-6 mb-4 guide-item" data-title="Geografía Mundial" onclick="openGuide(4)">
                     <div class="guide-card  " style="border-left-color:#f1c40f;">
                         <div class="d-flex p-3">
 
@@ -277,7 +281,7 @@
 
             <!-- SHOW USER INFO, AND CURRENT PROFILE PICTURE -->
             <div class="text-center mb-3">
-                <img id="currentPhoto" class="current-photo" src="/assets/icons/Profile Icons/1.png"
+                <img id="currentPhoto" class="current-photo jus" src="/assets/icons/Profile Icons/1.png"
                     style="display:none;">
                 <h5 id="userName" class="mt-3"></h5>
                 <p id="userEmail" class="text-muted"></p>
@@ -468,6 +472,13 @@
         });
 
     </script>
+
+    <script>
+        function openGuide(id) {
+            window.location.href = `game-view.html?id=${id}`;
+        }
+    </script>
+
 </body>
 
 </html>

@@ -253,6 +253,42 @@
             overlay.style.display = "none";
         }
 
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("cardsContainer");
+            const guiasGuardadas = JSON.parse(localStorage.getItem("guias")) || [];
+
+            guiasGuardadas.forEach(guia => {
+
+                const card = document.createElement("div");
+                card.classList.add("col-md-6", "mb-4", "guide-item");
+                card.setAttribute("data-title", guia.nombre);
+
+                card.innerHTML = `
+            <div class="guide-card" style="border-left-color:${guia.color};">
+                <div class="d-flex p-3">
+
+                    <img src="${guia.imagenURL}" class="guide-img me-3" style="object-fit:cover;">
+
+                        <div class="flex-grow-1">
+                            <h5 class="fw-bold mb-1">${guia.nombre}</h5>
+                            <p class="text-muted small mb-2">${guia.descripcion}</p>
+                            <span class="badge bg-light text-dark border">${guia.categoria}</span>
+                        </div>
+
+                        <div class="d-flex align-items-start">
+                            <div class="color-dot" style="background:${guia.color};"></div>
+                        </div>
+
+                </div>
+            </div>
+        `;
+
+                container.appendChild(card);
+            });
+        });
+
     </script>
 
 </body>
